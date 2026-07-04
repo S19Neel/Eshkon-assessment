@@ -4,7 +4,7 @@ import { prisma } from "@/lib/db/prisma";
 import { Page, PageSchema } from "@/lib/schema/page";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth/auth";
-import { Role } from "@/lib/generated/prisma/client";
+import { Role, Prisma } from "@/lib/generated/prisma/client";
 
 export async function saveDraftAction(
   slug: string,
@@ -22,7 +22,7 @@ export async function saveDraftAction(
     ) {
       return {
         success: false,
-        error: "Forbidden. Viewer role cannot modify drafts.",
+        error: "Forbidden. Only Editors and Publishers can save drafts.",
       };
     }
 
@@ -35,13 +35,13 @@ export async function saveDraftAction(
       where: { slug },
       update: {
         title: page.title,
-        sections: page.sections as any,
+        sections: page.sections as unknown as Prisma.InputJsonValue,
         updatedById: session.user.id,
       },
       create: {
         slug,
         title: page.title,
-        sections: page.sections as any,
+        sections: page.sections as unknown as Prisma.InputJsonValue,
         updatedById: session.user.id,
       },
     });

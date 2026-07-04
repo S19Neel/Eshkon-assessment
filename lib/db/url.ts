@@ -11,7 +11,7 @@ export function getDirectUrl(url: string | undefined): string {
         );
         if (decoded.databaseUrl) return decoded.databaseUrl;
       }
-    } catch (e) {
+    } catch {
       console.warn(
         "Failed to decode prisma+postgres url api_key, falling back to localhost:51214"
       );

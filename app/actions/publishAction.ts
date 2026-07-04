@@ -4,8 +4,9 @@ import { prisma } from "@/lib/db/prisma";
 import { Page, PageSchema } from "@/lib/schema/page";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth/auth";
-import { Role } from "@/lib/generated/prisma/client";
+import { Role, Prisma } from "@/lib/generated/prisma/client";
 import { calculateSemverDiff, SemverDiffResult } from "@/lib/publish/semver";
+import { writeReleaseSnapshot } from "@/lib/publish/snapshotWriter";
 
 export async function getLatestReleaseAction(
   slug: string
@@ -73,6 +74,8 @@ export async function publishReleaseAction(
     const diff = calculateSemverDiff(draftPage, lastRelease, lastVersion);
 
     if (diff.type === "none" && lastRelease) {
+      // Ensure file exists on disk in local/dev environments even if idempotent
+      writeReleaseSnapshot(slug, lastVersion, draftPage);
       return {
         success: true,
         version: lastVersion,
@@ -87,11 +90,14 @@ export async function publishReleaseAction(
         pageId: draftPage.pageId || `page-${slug}`,
         slug,
         version: diff.nextVersion,
-        snapshot: draftPage as any,
+        snapshot: draftPage as unknown as Prisma.InputJsonValue,
         changelog: diff.changelog,
         publishedById: session.user.id,
       },
     });
+
+    // Write filesystem snapshot artifact (releases/<slug>/<version>.json)
+    writeReleaseSnapshot(slug, newRelease.version, draftPage);
 
     return {
       success: true,

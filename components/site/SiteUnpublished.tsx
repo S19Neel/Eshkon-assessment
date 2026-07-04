@@ -17,9 +17,9 @@ export const SiteUnpublished: React.FC<SiteUnpublishedProps> = ({ slug }) => {
           No Release Published Yet
         </h1>
         <p className="text-sm text-slate-400">
-          The page <strong className="text-white">'{slug}'</strong> has not been
-          published to production yet. Head over to the Page Studio to create
-          and release version 0.1.0!
+          The page <strong className="text-white">&apos;{slug}&apos;</strong>{" "}
+          has not been published to production yet. Head over to the Page Studio
+          to create and release version 0.1.0!
         </p>
       </div>
       <Link

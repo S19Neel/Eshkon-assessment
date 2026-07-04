@@ -2,7 +2,11 @@
 
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/lib/redux/store";
-import { showToast, setActiveTab } from "@/lib/redux/slices/uiSlice";
+import {
+  showToast,
+  setActiveTab,
+  clearToast,
+} from "@/lib/redux/slices/uiSlice";
 import { setSaving, setSaved } from "@/lib/redux/slices/draftPageSlice";
 import { saveDraftAction } from "@/app/actions/draftActions";
 import { StudioTab } from "@/types/studio";
@@ -66,7 +70,7 @@ export function useStudioActions(slug: string, role: string) {
   };
 
   const closeToast = () => {
-    dispatch(showToast(null as any));
+    dispatch(clearToast());
   };
 
   return {

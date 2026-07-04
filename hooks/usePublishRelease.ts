@@ -25,13 +25,25 @@ export function usePublishRelease(slug: string, role: string) {
   const [loadingDiff, setLoadingDiff] = useState(true);
 
   useEffect(() => {
+    let active = true;
     if (page) {
-      setLoadingDiff(true);
+      queueMicrotask(() => {
+        if (active) setLoadingDiff(true);
+      });
       calculateDiffAction(slug, page)
-        .then((res) => setDiff(res))
-        .catch(() => setDiff(null))
-        .finally(() => setLoadingDiff(false));
+        .then((res) => {
+          if (active) setDiff(res);
+        })
+        .catch(() => {
+          if (active) setDiff(null);
+        })
+        .finally(() => {
+          if (active) setLoadingDiff(false);
+        });
     }
+    return () => {
+      active = false;
+    };
   }, [slug, page]);
 
   const handlePublish = async () => {
