@@ -7,6 +7,7 @@ import { SectionListItem } from "./SectionListItem";
 import { AddSectionDialog } from "./AddSectionDialog";
 import { DeleteSectionDialog } from "./DeleteSectionDialog";
 import { SectionType } from "@/types/editor";
+import { Plus } from "lucide-react";
 
 export const SectionListEditor: React.FC = () => {
   const {
@@ -40,21 +41,26 @@ export const SectionListEditor: React.FC = () => {
 
   return (
     <div className="space-y-4">
-      <div className="flex items-center justify-between border-b border-slate-700 pb-3">
-        <h2
-          id="section-list-heading"
-          className="text-sm font-bold uppercase tracking-wider text-slate-300"
-        >
-          Page Sections ({page.sections.length})
-        </h2>
+      <div className="flex items-center justify-between border-b border-slate-800 pb-3.5">
+        <div className="flex items-center gap-2">
+          <h2
+            id="section-list-heading"
+            className="text-xs font-bold uppercase tracking-wider text-slate-300"
+          >
+            Page Sections
+          </h2>
+          <span className="bg-slate-800 text-blue-400 font-bold text-[11px] px-2 py-0.5 rounded-full border border-slate-700 shadow-sm">
+            {page.sections.length}
+          </span>
+        </div>
         <Button
           type="button"
           size="sm"
           onClick={() => setShowAddModal(true)}
           aria-label="Add new section"
-          className="text-xs font-semibold bg-blue-600 hover:bg-blue-500 text-white rounded-lg shadow transition-all"
+          className="text-xs font-semibold bg-blue-600 hover:bg-blue-500 text-white rounded-lg shadow-md transition-all flex items-center gap-1.5 cursor-pointer h-8 px-3"
         >
-          + Add Section
+          <Plus className="w-3.5 h-3.5" /> Add Section
         </Button>
       </div>
 

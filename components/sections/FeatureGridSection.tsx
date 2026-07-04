@@ -30,11 +30,13 @@ export const FeatureGridSection: React.FC<FeatureGridSectionProps> = ({
   const { features, columns } = parsed.data;
 
   const gridCols =
-    columns === "2"
-      ? "grid-cols-1 md:grid-cols-2"
-      : columns === "4"
-        ? "grid-cols-1 md:grid-cols-2 lg:grid-cols-4"
-        : "grid-cols-1 md:grid-cols-3";
+    columns === "1"
+      ? "grid-cols-1 max-w-xl mx-auto"
+      : columns === "2"
+        ? "grid-cols-1 md:grid-cols-2"
+        : columns === "4"
+          ? "grid-cols-1 md:grid-cols-2 lg:grid-cols-4"
+          : "grid-cols-1 md:grid-cols-3";
 
   return (
     <section

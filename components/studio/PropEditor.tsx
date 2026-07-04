@@ -65,9 +65,11 @@ export const PropEditor: React.FC = () => {
             testimonials={
               (section.props.testimonials as unknown as TestimonialItem[]) || []
             }
+            columns={(section.props.columns as string) || "3"}
             onChange={handlePropChange}
           />
         );
+
       default:
         return (
           <div className="p-4 bg-yellow-950/40 border border-yellow-700 text-yellow-300 rounded-xl text-xs">

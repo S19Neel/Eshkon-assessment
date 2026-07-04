@@ -27,7 +27,16 @@ export const TestimonialSection: React.FC<TestimonialSectionProps> = ({
     );
   }
 
-  const { testimonials } = parsed.data;
+  const { testimonials, columns } = parsed.data;
+
+  const gridCols =
+    columns === "1"
+      ? "grid-cols-1 max-w-xl mx-auto"
+      : columns === "2"
+        ? "grid-cols-1 md:grid-cols-2"
+        : columns === "4"
+          ? "grid-cols-1 md:grid-cols-2 lg:grid-cols-4"
+          : "grid-cols-1 md:grid-cols-3";
 
   return (
     <section
@@ -40,7 +49,7 @@ export const TestimonialSection: React.FC<TestimonialSectionProps> = ({
       >
         What People Are Saying
       </h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className={`grid ${gridCols} gap-6`}>
         {testimonials.map((t, idx) => (
           <Card
             key={idx}

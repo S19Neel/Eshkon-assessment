@@ -78,5 +78,6 @@ export interface TestimonialItem {
 export interface TestimonialPropFormProps {
   sectionId: string;
   testimonials: TestimonialItem[];
+  columns: string;
   onChange: (key: string, value: unknown) => void;
 }

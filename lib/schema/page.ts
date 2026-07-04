@@ -14,7 +14,7 @@ export const FeatureGridItemSchema = z.object({
 
 export const FeatureGridSectionPropsSchema = z.object({
   features: z.array(FeatureGridItemSchema).min(1),
-  columns: z.enum(["2", "3", "4"]).optional().default("3"),
+  columns: z.enum(["1", "2", "3", "4"]).optional().default("3"),
 });
 
 export const TestimonialItemSchema = z.object({
@@ -27,6 +27,7 @@ export const TestimonialItemSchema = z.object({
 
 export const TestimonialSectionPropsSchema = z.object({
   testimonials: z.array(TestimonialItemSchema).min(1),
+  columns: z.enum(["1", "2", "3", "4"]).optional().default("3"),
 });
 
 export const CtaSectionPropsSchema = z.object({
