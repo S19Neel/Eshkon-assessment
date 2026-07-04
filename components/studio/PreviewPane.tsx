@@ -9,7 +9,9 @@ import { SectionRenderer } from "@/components/registry/sectionRegistry";
 export const PreviewPane: React.FC = () => {
   const dispatch = useDispatch();
   const page = useSelector((state: RootState) => state.draftPage.page);
-  const selectedSectionId = useSelector((state: RootState) => state.ui.selectedSectionId);
+  const selectedSectionId = useSelector(
+    (state: RootState) => state.ui.selectedSectionId
+  );
 
   if (!page) {
     return (

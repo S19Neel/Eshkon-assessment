@@ -5,13 +5,7 @@ import { useDispatch } from "react-redux";
 import { setDraftPage } from "@/lib/redux/slices/draftPageSlice";
 import { setActiveTab } from "@/lib/redux/slices/uiSlice";
 import { StudioLayout } from "./StudioLayout";
-import { Page } from "@/lib/schema/page";
-
-interface StudioClientProps {
-  slug: string;
-  initialPage: Page;
-  role: string;
-}
+import { StudioClientProps } from "@/types/studio";
 
 export const StudioClient: React.FC<StudioClientProps> = ({
   slug,

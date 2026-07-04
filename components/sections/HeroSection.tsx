@@ -1,26 +1,37 @@
 import React from "react";
 import { HeroSectionPropsSchema } from "@/lib/schema/page";
-
-interface HeroSectionProps {
-  props: Record<string, unknown>;
-}
+import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
+import { HeroSectionProps } from "@/types/sections";
 
 export const HeroSection: React.FC<HeroSectionProps> = ({ props }) => {
   const parsed = HeroSectionPropsSchema.safeParse(props);
 
   if (!parsed.success) {
     return (
-      <section aria-label="Invalid Hero Section" className="p-8 bg-red-950/40 border border-red-500 rounded-xl my-4">
-        <h2 className="text-lg font-bold text-red-400">Invalid Hero Section Configuration</h2>
-        <p className="text-sm text-red-200 mt-1">Please check the section properties in the Studio.</p>
-      </section>
+      <div className="my-4">
+        <Alert
+          variant="destructive"
+          className="bg-red-950/40 border-red-500 text-red-200"
+        >
+          <AlertTitle className="font-bold">
+            Invalid Hero Section Configuration
+          </AlertTitle>
+          <AlertDescription className="text-xs mt-1">
+            Please check the section properties in the Studio editor.
+          </AlertDescription>
+        </Alert>
+      </div>
     );
   }
 
   const { title, subtitle, align } = parsed.data;
 
   const alignClass =
-    align === "left" ? "text-left items-start" : align === "right" ? "text-right items-end" : "text-center items-center";
+    align === "left"
+      ? "text-left items-start"
+      : align === "right"
+        ? "text-right items-end"
+        : "text-center items-center";
 
   return (
     <section

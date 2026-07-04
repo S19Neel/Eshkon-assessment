@@ -49,7 +49,7 @@ describe("SemVer Diff Calculation Engine", () => {
     expect(diff.type).toBe("patch");
     expect(diff.nextVersion).toBe("0.1.1");
     expect(diff.changelog).toContain(
-      "Updated content/properties in section 'sec-1'",
+      "Updated content/properties in section 'sec-1'"
     );
   });
 
@@ -98,7 +98,7 @@ describe("SemVer Diff Calculation Engine", () => {
     expect(diff.type).toBe("major");
     expect(diff.nextVersion).toBe("2.0.0");
     expect(diff.changelog).toContain(
-      "Changed type of section 'sec-1' from 'hero' to 'cta'",
+      "Changed type of section 'sec-1' from 'hero' to 'cta'"
     );
   });
 });

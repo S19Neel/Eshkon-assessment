@@ -8,7 +8,7 @@ import { Role } from "@/lib/generated/prisma/client";
 import { calculateSemverDiff, SemverDiffResult } from "@/lib/publish/semver";
 
 export async function getLatestReleaseAction(
-  slug: string,
+  slug: string
 ): Promise<{ release: Page | null; version: string }> {
   try {
     const latest = await prisma.release.findFirst({
@@ -31,7 +31,7 @@ export async function getLatestReleaseAction(
 
 export async function calculateDiffAction(
   slug: string,
-  draftPage: Page,
+  draftPage: Page
 ): Promise<SemverDiffResult> {
   const { release, version } = await getLatestReleaseAction(slug);
   return calculateSemverDiff(draftPage, release, version);
@@ -39,7 +39,7 @@ export async function calculateDiffAction(
 
 export async function publishReleaseAction(
   slug: string,
-  draftPage: Page,
+  draftPage: Page
 ): Promise<{
   success: boolean;
   version?: string;

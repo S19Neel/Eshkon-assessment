@@ -1,12 +1,11 @@
 import React from "react";
-import { Section } from "@/lib/schema/page";
 import { HeroSection } from "@/components/sections/HeroSection";
 import { FeatureGridSection } from "@/components/sections/FeatureGridSection";
 import { TestimonialSection } from "@/components/sections/TestimonialSection";
 import { CtaSection } from "@/components/sections/CtaSection";
 import { UnsupportedSection } from "@/components/sections/UnsupportedSection";
-
-export type SectionComponent = React.FC<{ props: Record<string, unknown>; id?: string; type?: string }>;
+import { Badge } from "@/components/ui/badge";
+import { SectionComponent, SectionRendererProps } from "@/types/sections";
 
 export const sectionRegistry: Record<string, SectionComponent> = {
   hero: HeroSection,
@@ -14,13 +13,6 @@ export const sectionRegistry: Record<string, SectionComponent> = {
   testimonial: TestimonialSection,
   cta: CtaSection,
 };
-
-interface SectionRendererProps {
-  sections: Section[];
-  onSelectSection?: (id: string) => void;
-  selectedId?: string | null;
-  interactive?: boolean;
-}
 
 export const SectionRenderer: React.FC<SectionRendererProps> = ({
   sections,
@@ -39,8 +31,14 @@ export const SectionRenderer: React.FC<SectionRendererProps> = ({
             key={section.id}
             onClick={() => interactive && onSelectSection?.(section.id)}
             className={`relative transition-all duration-150 ${
-              interactive ? "cursor-pointer hover:ring-2 hover:ring-blue-500/50 rounded-2xl" : ""
-            } ${isSelected ? "ring-2 ring-blue-500 ring-offset-4 ring-offset-slate-900 rounded-2xl" : ""}`}
+              interactive
+                ? "cursor-pointer hover:ring-2 hover:ring-blue-500/50 rounded-2xl"
+                : ""
+            } ${
+              isSelected
+                ? "ring-2 ring-blue-500 ring-offset-4 ring-offset-slate-900 rounded-2xl"
+                : ""
+            }`}
             role={interactive ? "button" : undefined}
             tabIndex={interactive ? 0 : undefined}
             onKeyDown={(e) => {
@@ -51,11 +49,20 @@ export const SectionRenderer: React.FC<SectionRendererProps> = ({
             }}
           >
             {interactive && (
-              <div className="absolute top-2 right-2 z-10 bg-slate-900/80 border border-slate-700 text-xs px-2 py-1 rounded text-slate-300 font-mono">
-                {section.type}
+              <div className="absolute top-3 right-3 z-10">
+                <Badge
+                  variant="outline"
+                  className="bg-slate-900/90 border-slate-700 text-[10px] px-2 py-0.5 rounded text-slate-300 font-mono uppercase shadow backdrop-blur"
+                >
+                  {section.type}
+                </Badge>
               </div>
             )}
-            <Component props={section.props} id={section.id} type={section.type} />
+            <Component
+              props={section.props}
+              id={section.id}
+              type={section.type}
+            />
           </div>
         );
       })}

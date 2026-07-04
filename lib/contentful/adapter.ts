@@ -67,7 +67,7 @@ export const fallbackSamplePage: Page = {
 
 export async function getPageData(
   slug: string,
-  preview = false,
+  preview = false
 ): Promise<Page> {
   try {
     const dbDraft = await prisma.draft.findUnique({ where: { slug } });
@@ -127,14 +127,14 @@ export async function getPageData(
         } else {
           console.warn(
             "Contentful data failed Zod validation. Using DB/fallback.",
-            parsed.error,
+            parsed.error
           );
         }
       }
     } catch (err) {
       console.warn(
         `Error fetching page '${slug}' from Contentful. Falling back to DB/default.`,
-        err,
+        err
       );
     }
   }

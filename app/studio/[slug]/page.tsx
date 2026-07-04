@@ -4,10 +4,7 @@ import { authOptions } from "@/lib/auth/auth";
 import { getPageData } from "@/lib/contentful/adapter";
 import { StudioClient } from "@/components/studio/StudioClient";
 import { redirect } from "next/navigation";
-
-interface StudioPageProps {
-  params: Promise<{ slug: string }>;
-}
+import { StudioPageProps } from "@/types/pages";
 
 export default async function StudioPage({ params }: StudioPageProps) {
   const resolvedParams = await params;

@@ -8,7 +8,7 @@ import { Role } from "@/lib/generated/prisma/client";
 
 export async function saveDraftAction(
   slug: string,
-  page: Page,
+  page: Page
 ): Promise<{ success: boolean; error?: string }> {
   try {
     const session = await getServerSession(authOptions);

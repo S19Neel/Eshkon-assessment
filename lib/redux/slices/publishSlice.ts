@@ -45,6 +45,11 @@ export const publishSlice = createSlice({
   },
 });
 
-export const { setPublishing, setPublishResult, setPublishError, resetPublish } = publishSlice.actions;
+export const {
+  setPublishing,
+  setPublishResult,
+  setPublishError,
+  resetPublish,
+} = publishSlice.actions;
 
 export default publishSlice.reducer;

@@ -2,26 +2,11 @@ import "dotenv/config";
 import { Pool } from "pg";
 import { PrismaPg } from "@prisma/adapter-pg";
 import { PrismaClient, Role } from "../lib/generated/prisma/client";
+import { getDirectUrl } from "../lib/db/url";
 
-function getDirectUrl(url: string | undefined): string {
-  if (!url) return "postgres://postgres:postgres@localhost:51214/template1?sslmode=disable";
-  if (url.startsWith("prisma+postgres://")) {
-    try {
-      const urlObj = new URL(url);
-      const apiKey = urlObj.searchParams.get("api_key");
-      if (apiKey) {
-        const decoded = JSON.parse(Buffer.from(apiKey, "base64").toString("utf-8"));
-        if (decoded.databaseUrl) return decoded.databaseUrl;
-      }
-    } catch (e) {
-      console.warn("Failed to decode prisma+postgres url api_key, falling back to localhost:51214");
-    }
-    return "postgres://postgres:postgres@localhost:51214/template1?sslmode=disable";
-  }
-  return url;
-}
-
-const pool = new Pool({ connectionString: getDirectUrl(process.env.DATABASE_URL) });
+const pool = new Pool({
+  connectionString: getDirectUrl(process.env.DATABASE_URL),
+});
 const adapter = new PrismaPg(pool);
 const prisma = new PrismaClient({ adapter });
 
@@ -81,9 +66,18 @@ async function main() {
       type: "featureGrid",
       props: {
         features: [
-          { title: "Lightning Fast", description: "Built on Next.js App Router for optimal performance." },
-          { title: "Version Controlled", description: "Immutable semver releases with instant rollback." },
-          { title: "Accessible", description: "WCAG 2.2 AAA oriented keyboard and contrast support." },
+          {
+            title: "Lightning Fast",
+            description: "Built on Next.js App Router for optimal performance.",
+          },
+          {
+            title: "Version Controlled",
+            description: "Immutable semver releases with instant rollback.",
+          },
+          {
+            title: "Accessible",
+            description: "WCAG 2.2 AAA oriented keyboard and contrast support.",
+          },
         ],
       },
     },

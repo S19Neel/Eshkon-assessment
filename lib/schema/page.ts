@@ -31,8 +31,14 @@ export const TestimonialSectionPropsSchema = z.object({
 
 export const CtaSectionPropsSchema = z.object({
   label: z.string().min(1, "CTA label is required"),
-  url: z.string().url("Must be a valid URL").or(z.string().startsWith("/", "Must be a relative URL")),
-  style: z.enum(["primary", "secondary", "outline"]).optional().default("primary"),
+  url: z
+    .string()
+    .url("Must be a valid URL")
+    .or(z.string().startsWith("/", "Must be a relative URL")),
+  style: z
+    .enum(["primary", "secondary", "outline"])
+    .optional()
+    .default("primary"),
 });
 
 export const SectionSchema = z
@@ -64,7 +70,10 @@ export const PageSchema = z.object({
 
 export type Page = z.infer<typeof PageSchema>;
 
-export function validateSectionProps(type: string, props: Record<string, unknown>) {
+export function validateSectionProps(
+  type: string,
+  props: Record<string, unknown>
+) {
   switch (type) {
     case "hero":
       return HeroSectionPropsSchema.safeParse(props);
@@ -75,6 +84,9 @@ export function validateSectionProps(type: string, props: Record<string, unknown
     case "cta":
       return CtaSectionPropsSchema.safeParse(props);
     default:
-      return { success: false, error: new Error(`Unsupported section type: ${type}`) };
+      return {
+        success: false,
+        error: new Error(`Unsupported section type: ${type}`),
+      };
   }
 }

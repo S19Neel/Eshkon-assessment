@@ -31,11 +31,16 @@ export const draftPageSlice = createSlice({
     },
     removeSection: (state, action: PayloadAction<string>) => {
       if (state.page) {
-        state.page.sections = state.page.sections.filter((s) => s.id !== action.payload);
+        state.page.sections = state.page.sections.filter(
+          (s) => s.id !== action.payload
+        );
         state.isDirty = true;
       }
     },
-    reorderSections: (state, action: PayloadAction<{ startIndex: number; endIndex: number }>) => {
+    reorderSections: (
+      state,
+      action: PayloadAction<{ startIndex: number; endIndex: number }>
+    ) => {
       if (state.page) {
         const result = Array.from(state.page.sections);
         const [removed] = result.splice(action.payload.startIndex, 1);
@@ -49,7 +54,9 @@ export const draftPageSlice = createSlice({
       action: PayloadAction<{ id: string; props: Record<string, unknown> }>
     ) => {
       if (state.page) {
-        const section = state.page.sections.find((s) => s.id === action.payload.id);
+        const section = state.page.sections.find(
+          (s) => s.id === action.payload.id
+        );
         if (section) {
           section.props = { ...section.props, ...action.payload.props };
           state.isDirty = true;

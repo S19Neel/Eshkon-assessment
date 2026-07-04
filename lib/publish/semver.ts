@@ -25,7 +25,11 @@ function bumpVersion(version: string, type: SemverType): string {
   return version || "0.1.0";
 }
 
-export function calculateSemverDiff(currentDraft: Page, lastReleaseSnapshot: Page | null, lastVersion = "0.0.0"): SemverDiffResult {
+export function calculateSemverDiff(
+  currentDraft: Page,
+  lastReleaseSnapshot: Page | null,
+  lastVersion = "0.0.0"
+): SemverDiffResult {
   if (!lastReleaseSnapshot) {
     return {
       type: "minor",
@@ -50,7 +54,9 @@ export function calculateSemverDiff(currentDraft: Page, lastReleaseSnapshot: Pag
       changes.push(`Removed section '${releaseSec.id}' (${releaseSec.type}).`);
       highestDiff = "major";
     } else if (draftSec.type !== releaseSec.type) {
-      changes.push(`Changed type of section '${releaseSec.id}' from '${releaseSec.type}' to '${draftSec.type}'.`);
+      changes.push(
+        `Changed type of section '${releaseSec.id}' from '${releaseSec.type}' to '${draftSec.type}'.`
+      );
       highestDiff = "major";
     }
   });
@@ -70,7 +76,9 @@ export function calculateSemverDiff(currentDraft: Page, lastReleaseSnapshot: Pag
       const draftPropsStr = JSON.stringify(draftSec.props || {});
       const releasePropsStr = JSON.stringify(releaseSec.props || {});
       if (draftPropsStr !== releasePropsStr) {
-        changes.push(`Updated content/properties in section '${draftSec.id}' (${draftSec.type}).`);
+        changes.push(
+          `Updated content/properties in section '${draftSec.id}' (${draftSec.type}).`
+        );
         if (highestDiff === "none") {
           highestDiff = "patch";
         }
@@ -87,8 +95,12 @@ export function calculateSemverDiff(currentDraft: Page, lastReleaseSnapshot: Pag
     }
   }
 
-  const nextVersion = highestDiff === "none" ? lastVersion : bumpVersion(lastVersion, highestDiff);
-  const changelog = changes.length > 0 ? changes.join(" ") : "No changes detected.";
+  const nextVersion =
+    highestDiff === "none"
+      ? lastVersion
+      : bumpVersion(lastVersion, highestDiff);
+  const changelog =
+    changes.length > 0 ? changes.join(" ") : "No changes detected.";
 
   return {
     type: highestDiff,

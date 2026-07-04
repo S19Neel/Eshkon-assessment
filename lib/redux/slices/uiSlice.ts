@@ -21,7 +21,10 @@ export const uiSlice = createSlice({
   name: "ui",
   initialState,
   reducers: {
-    setActiveTab: (state, action: PayloadAction<"edit" | "preview" | "json">) => {
+    setActiveTab: (
+      state,
+      action: PayloadAction<"edit" | "preview" | "json">
+    ) => {
       state.activeTab = action.payload;
     },
     setSelectedSectionId: (state, action: PayloadAction<string | null>) => {
@@ -36,6 +39,7 @@ export const uiSlice = createSlice({
   },
 });
 
-export const { setActiveTab, setSelectedSectionId, showToast, clearToast } = uiSlice.actions;
+export const { setActiveTab, setSelectedSectionId, showToast, clearToast } =
+  uiSlice.actions;
 
 export default uiSlice.reducer;

@@ -1,23 +1,22 @@
 import React from "react";
+import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
+import { UnsupportedSectionProps } from "@/types/sections";
 
-interface UnsupportedSectionProps {
-  type: string;
-  props: Record<string, unknown>;
-}
-
-export const UnsupportedSection: React.FC<UnsupportedSectionProps> = ({ type }) => {
+export const UnsupportedSection: React.FC<UnsupportedSectionProps> = ({
+  type,
+}) => {
   return (
-    <section
-      aria-label={`Unsupported Section Type: ${type}`}
-      className="p-6 bg-amber-950/30 border border-amber-600/50 rounded-xl my-4 text-center max-w-4xl mx-auto"
-    >
-      <div className="inline-flex items-center gap-2 text-amber-400 font-bold text-base">
-        <span>⚠️</span>
-        <span>Unsupported Section Type: &ldquo;{type}&rdquo;</span>
-      </div>
-      <p className="text-xs text-amber-200/80 mt-1">
-        This section exists in the data but does not have a registered rendering component yet.
-      </p>
-    </section>
+    <div className="my-4 max-w-4xl mx-auto">
+      <Alert className="bg-amber-950/30 border-amber-600/50 text-amber-300">
+        <AlertTitle className="font-bold flex items-center gap-2">
+          <span>⚠️</span>
+          <span>Unsupported Section Type: &ldquo;{type}&rdquo;</span>
+        </AlertTitle>
+        <AlertDescription className="text-xs text-amber-200/80 mt-1">
+          This section exists in the data but does not have a registered
+          rendering component yet.
+        </AlertDescription>
+      </Alert>
+    </div>
   );
 };

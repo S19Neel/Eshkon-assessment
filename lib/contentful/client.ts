@@ -10,11 +10,11 @@ const globalForContentful = globalThis as unknown as {
 };
 
 export function getContentfulClient(
-  preview = false,
+  preview = false
 ): ContentfulClientApi<undefined> | null {
   if (!spaceId || (!deliveryToken && !previewToken)) {
     console.warn(
-      "Contentful environment variables missing. Returning null client.",
+      "Contentful environment variables missing. Returning null client."
     );
     return null;
   }
