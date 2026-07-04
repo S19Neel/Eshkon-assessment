@@ -35,8 +35,9 @@ export default async function PreviewPage({
   const { slug } = await params;
   const resolvedQuery = await searchParams;
   const usePreviewApi = resolvedQuery?.preview !== "false";
+  const forceContentful = resolvedQuery?.source === "contentful";
 
-  const pageData = await getPageData(slug, usePreviewApi);
+  const pageData = await getPageData(slug, usePreviewApi, forceContentful);
 
   if (!pageData) {
     notFound();

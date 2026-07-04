@@ -12,9 +12,8 @@ import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { useLoginAuth, QUICK_ROLES } from "@/hooks/useLoginAuth";
-import { LoginPageProps } from "@/types/auth";
 
-export default function LoginPage(_props: LoginPageProps) {
+export default function LoginPage() {
   const {
     email,
     password,
